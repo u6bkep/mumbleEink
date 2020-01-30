@@ -9,14 +9,17 @@ picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__)
 libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'lib')
 if os.path.exists(libdir):
     sys.path.append(libdir)
-
+from calendar_get import update_cal
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
 import logging
 from waveshare_epd import epd7in5_V2
 import time
 from PIL import Image,ImageDraw,ImageFont,ImageChops
 import traceback
 
-logging.basicConfig(level=logging.DEBUG)
+#logging.basicConfig(level=logging.DEBUG)
 
 try:
     logging.info("epd7in5_V2 Demo")
@@ -37,7 +40,13 @@ try:
 #    Himage = Image.open('mumble.bmp')
     Himage = Image.open(io.BytesIO(p.stdout.read()))
 
-    
+    update_cal()
+
+    p = Popen("inkscape screen-output-cal.svg --without-gui -e -", shell=True, stdout=PIPE, close_fds=True)
+
+    calImage = Image.open(io.BytesIO(p.stdout.read()))
+
+    Himage.paste(calImage, mask=calImage.split()[3])
  #   diff = ImageChops.difference(imgOld , Himage)
   #  if diff.getbbox() != None:
         

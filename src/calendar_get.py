@@ -78,5 +78,6 @@ def update_cal():
         output = output.replace('CAL_DATE_{}'.format(i+1),dateTimeStart.strftime("%a %b %d"))
         output = output.replace('CAL_TIME_{}'.format(i+1),dateTimeStart.strftime("%-I:%M%p"))
         output = output.replace('CAL_DESC_{}'.format(i+1),desc)
-
-    codecs.open('screen-output-cal.svg', 'w', encoding='utf-8').write(output)
+        codecs.open('screen-output-cal.svg', 'w', encoding='utf-8').write(output)
+    return output
+    #codecs.open('screen-output-cal.svg', 'w', encoding='utf-8').write(output)

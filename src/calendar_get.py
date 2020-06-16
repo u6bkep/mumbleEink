@@ -1,5 +1,6 @@
 from __future__ import print_function
 import datetime
+from datetime import date
 import time
 import pickle
 import os.path
@@ -63,10 +64,10 @@ def update_cal():
     if not events:
         print('No upcoming events found.')
         output = codecs.open(template , 'r', encoding='utf-8').read()
-        output = output.replace('CAL_DAY', iso8601.parse_date(events[0]['start']['dateTime']).strftime("%d"))
+        output = output.replace('CAL_DAY', date.today().strftime("%d"))
         return output
     output = codecs.open(template , 'r', encoding='utf-8').read()
-    output = output.replace('CAL_DAY', iso8601.parse_date(events[0]['start']['dateTime']).strftime("%d"))
+    output = output.replace('CAL_DAY', date.today().strftime("%d"))
     #import pdb; pdb.set_trace()
     for i, event in enumerate(events):
         dateTimeStart = iso8601.parse_date(event['start']['dateTime'])
